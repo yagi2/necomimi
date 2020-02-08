@@ -1,6 +1,8 @@
 package app.yagi2.necomimi.ui.register
 
 import android.os.Bundle
+import android.text.SpannableStringBuilder
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.doOnTextChanged
 import androidx.databinding.DataBindingUtil
@@ -27,10 +29,31 @@ class RegisterActivity : AppCompatActivity() {
             secretKey.doOnTextChanged { input, _, _, _ ->
                 input?.let { viewModel.setSecretKey(it) }
             }
+
+            register.setOnClickListener {
+                viewModel.register()
+            }
         }
 
-        viewModel.registerButtonStateData.observe(this, Observer {
-            binding.register.isEnabled = it
-        })
+        with(viewModel) {
+            val owner = this@RegisterActivity
+
+            initialKeysData.observe(owner, Observer { (accessKey, secretKey) ->
+                binding.accessKey.text = SpannableStringBuilder(accessKey)
+                binding.secretKey.text = SpannableStringBuilder(secretKey)
+                viewModel.checkRegisterButtonState()
+            })
+
+            registerButtonStateData.observe(owner, Observer {
+                binding.register.isEnabled = it
+            })
+
+            registerStateData.observe(owner, Observer {
+                when (it) {
+                    RegisterViewModel.RegisterState.SUCCESS -> finish()
+                    else -> Toast.makeText(owner, "しっぱい", Toast.LENGTH_LONG).show()
+                }
+            })
+        }
     }
 }
