@@ -3,5 +3,5 @@
 
     <string name="register_access_key_hint">Access Key</string>
     <string name="register_secret_key_hint">Secret Key</string>
-    <string name="register_register_button">Start Necomimi!</string>
+    <string name="register_register_button">Let\'s use Necomimi</string>
 </resources>
