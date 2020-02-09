@@ -12,13 +12,16 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import app.yagi2.necomimi.R
 import app.yagi2.necomimi.databinding.ActivityBucketListBinding
+import app.yagi2.necomimi.ui.item.ItemListActivity
 
 class BucketListActivity : AppCompatActivity() {
 
     private val viewModel by lazy {
         ViewModelProviders.of(this).get(BucketListViewModel::class.java)
     }
-    private val adapter = BucketListAdapter()
+    private val adapter = BucketListAdapter() {
+        ItemListActivity.start(this, it.name)
+    }
 
     private lateinit var binding: ActivityBucketListBinding
 
