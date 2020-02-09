@@ -11,7 +11,7 @@ import app.yagi2.necomimi.repository.S3Repository
 import com.amazonaws.services.s3.model.Bucket
 import kotlinx.coroutines.launch
 
-class SelectBucketViewModel(app: Application) : AndroidViewModel(app) {
+class BucketListViewModel(app: Application) : AndroidViewModel(app) {
 
     private val credentialRepository = CredentialRepository(app)
     private val repository: S3Repository = S3Repository(

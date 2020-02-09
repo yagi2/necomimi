@@ -23,7 +23,7 @@
         </activity>
 
         <activity
-            android:name=".ui.bucket.SelectBucketActivity"
+            android:name=".ui.bucket.BucketListActivity"
             android:label="@string/select_bucket_screen_title"
             android:screenOrientation="portrait" />
     </application>

@@ -11,16 +11,16 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import app.yagi2.necomimi.R
-import app.yagi2.necomimi.databinding.ActivitySelectBucketBinding
+import app.yagi2.necomimi.databinding.ActivityBucketListBinding
 
-class SelectBucketActivity : AppCompatActivity() {
+class BucketListActivity : AppCompatActivity() {
 
     private val viewModel by lazy {
-        ViewModelProviders.of(this).get(SelectBucketViewModel::class.java)
+        ViewModelProviders.of(this).get(BucketListViewModel::class.java)
     }
     private val adapter = BucketListAdapter()
 
-    private lateinit var binding: ActivitySelectBucketBinding
+    private lateinit var binding: ActivityBucketListBinding
 
     companion object {
         fun start(context: Context) {
@@ -28,19 +28,19 @@ class SelectBucketActivity : AppCompatActivity() {
         }
 
         private fun createIntent(context: Context): Intent {
-            return Intent(context, SelectBucketActivity::class.java)
+            return Intent(context, BucketListActivity::class.java)
         }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_select_bucket)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_bucket_list)
 
         binding.apply {
-            buckets.layoutManager = LinearLayoutManager(this@SelectBucketActivity)
+            buckets.layoutManager = LinearLayoutManager(this@BucketListActivity)
             buckets.addItemDecoration(
                 DividerItemDecoration(
-                    this@SelectBucketActivity,
+                    this@BucketListActivity,
                     DividerItemDecoration.VERTICAL
                 )
             )
@@ -48,7 +48,7 @@ class SelectBucketActivity : AppCompatActivity() {
         }
 
         with(viewModel) {
-            val owner = this@SelectBucketActivity
+            val owner = this@BucketListActivity
 
             bucketData.observe(owner, Observer {
                 adapter.setBuckets(it)

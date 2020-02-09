@@ -10,7 +10,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import app.yagi2.necomimi.R
 import app.yagi2.necomimi.databinding.ActivityRegisterBinding
-import app.yagi2.necomimi.ui.bucket.SelectBucketActivity
+import app.yagi2.necomimi.ui.bucket.BucketListActivity
 
 class RegisterActivity : AppCompatActivity() {
 
@@ -51,7 +51,7 @@ class RegisterActivity : AppCompatActivity() {
 
             registerStateData.observe(owner, Observer {
                 when (it) {
-                    RegisterViewModel.RegisterState.SUCCESS -> SelectBucketActivity.start(owner)
+                    RegisterViewModel.RegisterState.SUCCESS -> BucketListActivity.start(owner)
                     else -> Toast.makeText(owner, "しっぱい", Toast.LENGTH_LONG).show()
                 }
             })
