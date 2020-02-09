@@ -52,6 +52,8 @@ dependencies {
     implementation 'android.arch.lifecycle:extensions:1.1.1'
     implementation 'com.google.android.material:material:1.1.0'
 
+    implementation 'com.google.android.exoplayer:exoplayer:2.11.1'
+
     implementation 'com.amazonaws:aws-android-sdk-core:2.16.8'
     implementation 'com.amazonaws:aws-android-sdk-s3:2.16.8'
 
