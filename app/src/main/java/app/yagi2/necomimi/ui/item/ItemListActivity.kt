@@ -3,7 +3,6 @@ package app.yagi2.necomimi.ui.item
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
@@ -13,6 +12,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import app.yagi2.necomimi.R
 import app.yagi2.necomimi.databinding.ActivityItemListBinding
+import app.yagi2.necomimi.ui.player.MediaPlayerActivity
 
 //TODO 選んでいるバケットの名前をToolbarのタイトルにする
 class ItemListActivity : AppCompatActivity() {
@@ -23,8 +23,7 @@ class ItemListActivity : AppCompatActivity() {
 
     private val bucketName by lazy { intent.getStringExtra(EXTRA_BUCKET_NAME) }
     private val adapter = ItemListAdapter() {
-        //TODO 画面遷移
-        Toast.makeText(this, it.key, Toast.LENGTH_LONG).show()
+        MediaPlayerActivity.start(this, bucketName, it.key)
     }
 
     private lateinit var binding: ActivityItemListBinding

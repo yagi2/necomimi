@@ -9,6 +9,8 @@ import com.amazonaws.services.s3.model.Bucket
 import com.amazonaws.services.s3.model.S3ObjectSummary
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import java.net.URL
+import java.util.*
 
 class S3Repository(accessKey: String, secretKey: String) {
 
@@ -33,6 +35,15 @@ class S3Repository(accessKey: String, secretKey: String) {
     suspend fun getObjectList(bucketName: String): List<S3ObjectSummary> {
         return withContext(Dispatchers.IO) {
             s3Client.listObjects(bucketName).objectSummaries
+        }
+    }
+
+    suspend fun generatePresignedUrl(bucketName: String, fileKey: String): URL {
+        return withContext(Dispatchers.IO) {
+            val expiredDate = Date().apply {
+                time += 24 * 60 * 60 * 1000 // 有効期限は1日にする
+            }
+            s3Client.generatePresignedUrl(bucketName, fileKey, expiredDate)
         }
     }
 }
