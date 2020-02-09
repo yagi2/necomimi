@@ -6,14 +6,15 @@ import androidx.recyclerview.widget.RecyclerView
 import app.yagi2.necomimi.databinding.ItemBucketBinding
 import com.amazonaws.services.s3.model.Bucket
 
-class BucketListAdapter : RecyclerView.Adapter<BucketListAdapter.BucketListViewHolder>() {
+class BucketListAdapter(private val listener: (Bucket) -> Unit) :
+    RecyclerView.Adapter<BucketListAdapter.BucketListViewHolder>() {
 
     private var buckets: List<Bucket> = listOf()
 
     override fun getItemCount() = buckets.size
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BucketListViewHolder {
-        return BucketListViewHolder.create(parent)
+        return BucketListViewHolder.create(parent, listener)
     }
 
     override fun onBindViewHolder(holder: BucketListViewHolder, position: Int) {
@@ -25,18 +26,24 @@ class BucketListAdapter : RecyclerView.Adapter<BucketListAdapter.BucketListViewH
         notifyDataSetChanged()
     }
 
-    class BucketListViewHolder(private val binding: ItemBucketBinding) :
+    class BucketListViewHolder(
+        private val binding: ItemBucketBinding,
+        private val listener: (Bucket) -> Unit
+    ) :
         RecyclerView.ViewHolder(binding.root) {
         companion object {
-            fun create(parent: ViewGroup): BucketListViewHolder {
+            fun create(parent: ViewGroup, listener: (Bucket) -> Unit): BucketListViewHolder {
                 val binding =
                     ItemBucketBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-                return BucketListViewHolder(binding)
+                return BucketListViewHolder(binding, listener)
             }
         }
 
         fun bind(item: Bucket) {
             binding.bucketName.text = item.name
+            binding.root.setOnClickListener {
+                listener.invoke(item)
+            }
         }
     }
 }
